@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
-using EntityLayer.Concrate;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;

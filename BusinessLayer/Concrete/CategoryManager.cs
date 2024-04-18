@@ -1,44 +1,46 @@
 ﻿using BusinessLayer.Interfaces;
 using DataAccessLayer.EntityFrameworks;
-using EntityLayer.Concrate;
+using DataAccessLayer.Interfaces;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Concrate
+namespace BusinessLayer.Concrete
 {
     public class CategoryManager : ICategoryService
     {
-        EFCategoryRepository efCategoryRepository;
-        public CategoryManager()
+        private readonly ICategory _category;
+        public CategoryManager(ICategory category)
         {
-            efCategoryRepository = new EFCategoryRepository();
+            _category = category;
         }
+
         public void CategoryAdd(Category category)
         {
-            efCategoryRepository.Insert(category);
+            _category.Insert(category);
         }
 
         public void CategoryDelete(Category category)
         {
-            efCategoryRepository.Delete(category);
+            _category.Delete(category);
         }
 
         public void CategoryUpdate(Category category)
         {
-            efCategoryRepository.Update(category);
+            _category.Update(category);
         }
 
         public List<Category> GetAll()
         {
-            return efCategoryRepository.GetAll();
+            return _category.GetAll();
         }
 
         public Category GetById(int id)
         {
-            return efCategoryRepository.GetById(id);
+            return _category.GetById(id);
         }
     }
 }
