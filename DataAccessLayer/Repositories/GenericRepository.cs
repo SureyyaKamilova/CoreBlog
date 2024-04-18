@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Concrate;
+﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Interfaces;
 using System;
 using System.Collections.Generic;

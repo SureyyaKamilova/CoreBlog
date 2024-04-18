@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.Concrate;
+﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Interfaces;
-using EntityLayer.Concrate;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +16,11 @@ namespace DataAccessLayer.Repositories
             using var context = new Context();
             context.Add(blog);
             context.SaveChanges();
+        }
+
+        public void Delete(Blog t)
+        {
+            throw new NotImplementedException();
         }
 
         public void DeleteBlog(Blog blog)
@@ -36,6 +41,16 @@ namespace DataAccessLayer.Repositories
             using var context = new Context();
             return context.Blogs.Find(id);
 
+        }
+
+        public void Insert(Blog t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Blog t)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateBlog(Blog blog)

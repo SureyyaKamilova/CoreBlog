@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.Concrate;
+﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Interfaces;
-using EntityLayer.Concrate;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,11 @@ namespace DataAccessLayer.Repositories
             context.SaveChanges();
         }
 
+        public void Delete(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteCategory(Category category)
         {
             context.Remove(category);
@@ -32,6 +37,16 @@ namespace DataAccessLayer.Repositories
         public Category GetById(int id)
         {
             return context.Categories.Find(id);
+        }
+
+        public void Insert(Category t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Category t)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateCategory(Category category)

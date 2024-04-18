@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.Concrate;
+﻿using DataAccessLayer.Concrete;
 using DataAccessLayer.Interfaces;
-using EntityLayer.Concrate;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
