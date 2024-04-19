@@ -10,6 +10,6 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IBlog:IGeneric<Blog>
     {
-        
+        List<Blog> GetListCategory();
     }
 }
