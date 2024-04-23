@@ -15,5 +15,6 @@ namespace BusinessLayer.Interfaces
 		List<Blog> GetAll();
 		Blog GetById(int id);
 		List<Blog> GetBlogListCategory();
+		List<Blog> GetBlogListByWriter(int id);
 	}
 }
