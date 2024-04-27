@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Interfaces
 {
-	public interface IBlogService
+	public interface IBlogService:IGenericService<Blog>
 	{
-		void BlogAdd(Blog blog);
-		void BlogDelete(Blog blog);
-		void BlogUpdate(Blog blog);
-		List<Blog> GetAll();
-		Blog GetById(int id);
+		List<Blog> GetBlogById(int id);
 		List<Blog> GetBlogListCategory();
 		List<Blog> GetBlogListByWriter(int id);
 	}
