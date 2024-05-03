@@ -112,4 +112,8 @@
     <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\CoreBlogTema\WriterImageFiles\" />
+  </ItemGroup>
+
 </Project>

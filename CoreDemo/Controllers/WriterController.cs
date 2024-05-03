@@ -1,10 +1,13 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreDemo.Models;
 using DataAccessLayer.EntityFrameworks;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 
 namespace CoreDemo.Controllers
 {
@@ -72,9 +75,41 @@ namespace CoreDemo.Controllers
 			}
 
 			return View();
-		}   
+		}
 
+		[AllowAnonymous]
+		[HttpGet]
+		public IActionResult WriterAdd()
+		{
+			return View();
+		}
 
+		[AllowAnonymous]
+		[HttpPost]
+		public IActionResult WriterAdd(AddProfileImage addProfileImage)
+		{
+			Writer writer = new Writer();
+
+			if (addProfileImage.WriterImage != null)
+			{
+				var extension = Path.GetExtension(addProfileImage.WriterImage.FileName);
+				var newImageName = Guid.NewGuid() + extension;
+				var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/CoreBlogTema/WriterImageFiles/", newImageName);
+				var stream = new FileStream(location, FileMode.Create);
+				
+				addProfileImage.WriterImage.CopyTo(stream);
+				writer.WriterImage = newImageName;
+            }
+
+            writer.WriterName = addProfileImage.WriterName;
+            writer.WriterMail = addProfileImage.WriterMail;
+			writer.WriterPassword = addProfileImage.WriterPassword;
+			writer.WriterStatus = true;
+			writer.WriterAbout=addProfileImage.WriterAbout;
+
+			writerManager.TAdd(writer);
+			return RedirectToAction("Index", "DashBoard");
+		}
 
     }
 
