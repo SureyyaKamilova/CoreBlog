@@ -12,7 +12,7 @@ namespace CoreDemo.ViewComponents.Writer
             string message;
             message = "deneme11@gmail.com";
             var values = messageManager.GetInboxListByWriter(message);
-            return View();
+            return View(values);
         }
     }
 }
