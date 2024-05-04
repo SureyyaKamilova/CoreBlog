@@ -223,7 +223,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("MessageId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Message2", b =>
@@ -242,7 +242,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<bool>("MessageStatus")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RecieverId")
+                    b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SenderId")
@@ -253,11 +253,11 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("MessageId");
 
-                    b.HasIndex("RecieverId");
+                    b.HasIndex("ReceiverId");
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Message2");
+                    b.ToTable("Messages2");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.NewsLetter", b =>
@@ -372,7 +372,7 @@ namespace DataAccessLayer.Migrations
                 {
                     b.HasOne("EntityLayer.Concrete.Writer", "ReceiverUser")
                         .WithMany("WriterReceiver")
-                        .HasForeignKey("RecieverId");
+                        .HasForeignKey("ReceiverId");
 
                     b.HasOne("EntityLayer.Concrete.Writer", "SenderUser")
                         .WithMany("WriterSender")
