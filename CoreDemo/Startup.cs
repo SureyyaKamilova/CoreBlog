@@ -77,7 +77,6 @@ namespace CoreDemo
 
             app.UseAuthentication();
 
-
             app.UseRouting();
 
             app.UseAuthorization();
