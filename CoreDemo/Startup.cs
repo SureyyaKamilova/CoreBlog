@@ -28,6 +28,7 @@ namespace CoreDemo
         {
             services.AddControllersWithViews();
 
+
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -36,18 +37,18 @@ namespace CoreDemo
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            services.AddMvc();
+            //services.AddMvc();
             services.AddAuthentication(
                 CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
                 {
-                    x.LoginPath = "/LogIn/Index/";
+                    x.LoginPath = "/LogIn/Index";
                 });
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan=TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
                 options.LoginPath = "/LogIn/Index/";
                 options.SlidingExpiration = true;
@@ -75,11 +76,11 @@ namespace CoreDemo
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

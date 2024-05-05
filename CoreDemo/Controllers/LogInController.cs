@@ -19,9 +19,8 @@ namespace CoreDemo.Controllers
 			return View();
 		}
 
-
-		[HttpPost]
-		[AllowAnonymous]
+        [AllowAnonymous]
+        [HttpPost]
 		public async Task<IActionResult> Index(Writer writer)
 		{
 			#region LogIn

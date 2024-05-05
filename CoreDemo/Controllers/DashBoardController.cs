@@ -7,7 +7,6 @@ namespace CoreDemo.Controllers
 {
     public class DashBoardController : Controller
     {
-        [AllowAnonymous]
         public IActionResult Index()
         {
             Context context=new Context();
