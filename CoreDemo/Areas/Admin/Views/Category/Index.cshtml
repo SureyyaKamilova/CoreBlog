@@ -8,7 +8,7 @@
 
 <h1>Category`s List</h1>
 <br />
-<table class="table table-bordered">
+<table class="table table-bordered"> 
         <tr>
             <th>#</th>
             <th>Category Name</th>
@@ -21,7 +21,9 @@
             <tr>
                 <td>@category.CategoryId</td>
                 <td>@category.CategoryName</td>
-                <td><a href="#" class="btn btn-danger">Make Negative</a></td>
+            <td><a href="/Admin/Category/CategoryDelete/@category.CategoryId/" id="DeleteBtn"
+                   onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger">Make Negative</a>
+            </td>
                 <td><a href="#" class="btn btn-warning">Make Positive </a></td>
                 <td><a href="#" class="btn btn-success">Edit</a></td>
             </tr>

@@ -50,8 +50,13 @@ namespace CoreDemo.Areas.Admin.Controllers
                 
             }
             return View();
+        }
 
-
+        public IActionResult CategoryDelete(int id)
+        {
+            var categoryValue=categoryManager.GetById(id);
+            categoryManager.TDelete(categoryValue);
+            return RedirectToAction("Index");
         }
     }
 }
