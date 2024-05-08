@@ -29,6 +29,9 @@
 
         }
 </table>
+<a href="/Admin/Category/AddCategory" class="btn btn-primary">Create New Category</a>
 <br />
-@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new{page}))
+<br />
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action
+                     ("Index",new{page}))
 
