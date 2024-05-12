@@ -20,15 +20,15 @@ namespace CoreDemo.Areas.Admin.Controllers
             return Json(jsonWriters);
         }
 
-        public IActionResult GetWriterById(int id)
+        public IActionResult GetWriterById(int writerid)
         {
-            var findWriter = writers.FirstOrDefault(x => x.Id == id);
-            var jsonWriters = JsonConvert.SerializeObject(writers);
+            var findWriter = writers.FirstOrDefault(x => x.Id == writerid);
+            var jsonWriters = JsonConvert.SerializeObject(findWriter);
             
             return Json(jsonWriters);
 
         }
-
+        #region Writers
         public static List<WriterModel> writers = new List<WriterModel>
         {
             new WriterModel
@@ -49,5 +49,32 @@ namespace CoreDemo.Areas.Admin.Controllers
                 Name="Fəridə",
             }
         };
+        #endregion
+
+        [HttpPost]
+        public IActionResult AddWriter(WriterModel writer)
+        {
+            writers.Add(writer);
+            var jsonWriters = JsonConvert.SerializeObject(writer);
+            return Json(jsonWriters);
+        }
+
+
+        public IActionResult DeleteWriter(int id)
+        {
+            var writer = writers.FirstOrDefault(x => x.Id == id);
+            writers.Remove(writer);
+
+            return Json(writer);
+        }
+
+        public IActionResult UpdateWriter(WriterModel parameter)
+        {
+            var writer=writers.FirstOrDefault(x=>x.Id==parameter.Id);
+            writer.Name = parameter.Name;
+            var jsonWriter = JsonConvert.SerializeObject(parameter);
+
+            return Json(jsonWriter);
+        }
     }
 }
