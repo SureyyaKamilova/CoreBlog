@@ -1,65 +1,87 @@
-﻿using DataAccessLayer.Concrete;
+﻿using CoreDemo.Models;
 using EntityLayer.Concrete;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
-	public class LogInController : Controller
-	{
-		[AllowAnonymous]
-		public IActionResult Index()
-		{ 
-			return View();
-		}
+    [AllowAnonymous]
+    public class LogInController : Controller
+    {
+        private readonly SignInManager<AppUser> _signInManager;
 
-        [AllowAnonymous]
+        public LogInController(SignInManager<AppUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         [HttpPost]
-		public async Task<IActionResult> Index(Writer writer)
-		{
-			#region LogIn
-			//Context context =new Context();
-			//var dataValue = context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
-			//								x.WriterPassword == writer.WriterPassword);
-			//if (dataValue != null)
-			//{
-			//	HttpContext.Session.SetString("username", writer.WriterMail);
-			//	return RedirectToAction("Index", "Writer");
-			//}
-			//else
-			//{
-			//	return View();
-			//}
-			#endregion
+        public async Task< IActionResult> Index(UserSignInViewModel parameter)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(parameter.username, parameter.password, false, true);
 
-			Context context = new Context();
-			var dataValue=context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
-							             x.WriterPassword == writer.WriterPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "DashBoard");
+                }
+                else
+                {
+                    return RedirectToAction("Index","LogIn");
+                }
+            }
+            return View();
+            
+        }
 
-			if (dataValue != null)
-			{
-				var claims = new List<Claim>
-				{
-					new Claim(ClaimTypes.Name,writer.WriterMail)
-				};
+        //      [HttpPost]
+        //public async Task<IActionResult> Index(Writer writer)
+        //{
+        //	#region LogIn
+        //	//Context context =new Context();
+        //	//var dataValue = context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
+        //	//								x.WriterPassword == writer.WriterPassword);
+        //	//if (dataValue != null)
+        //	//{
+        //	//	HttpContext.Session.SetString("username", writer.WriterMail);
+        //	//	return RedirectToAction("Index", "Writer");
+        //	//}
+        //	//else
+        //	//{
+        //	//	return View();
+        //	//}
+        //	#endregion
 
-				var userIdentity = new ClaimsIdentity(claims, "a");
-				ClaimsPrincipal principal=new ClaimsPrincipal(userIdentity);
+        //	Context context = new Context();
+        //	var dataValue=context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
+        //					             x.WriterPassword == writer.WriterPassword);
 
-				await HttpContext.SignInAsync(principal);
-				return RedirectToAction("Index","DashBoard");
-			}
-			else
-			{
-				return View();
-			}
+        //	if (dataValue != null)
+        //	{
+        //		var claims = new List<Claim>
+        //		{
+        //			new Claim(ClaimTypes.Name,writer.WriterMail)
+        //		};
 
-		}
-	}
+        //		var userIdentity = new ClaimsIdentity(claims, "a");
+        //		ClaimsPrincipal principal=new ClaimsPrincipal(userIdentity);
+
+        //		await HttpContext.SignInAsync(principal);
+        //		return RedirectToAction("Index","DashBoard");
+        //	}
+        //	else
+        //	{
+        //		return View();
+        //	}
+
+        //}
+    }
 }
