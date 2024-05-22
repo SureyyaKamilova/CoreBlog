@@ -19,12 +19,15 @@ namespace CoreDemo.Controllers
         BlogManager blogManager = new BlogManager(new EFBlogRepository());
         CategoryManager categoryManager = new CategoryManager(new EFCategoryRepository());
         Context context = new Context();
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var values=blogManager.GetBlogListCategory();
             return View(values);
         }
 
+        [AllowAnonymous]
         public IActionResult BlogReadAll(int id)
         {
             ViewBag.Id = id;

@@ -1,3 +1,4 @@
+using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -38,7 +39,6 @@ namespace CoreDemo
             }).AddEntityFrameworkStores<Context>();
 
             services.AddControllersWithViews();
-
 
             services.AddMvc(config =>
             {
@@ -102,7 +102,7 @@ namespace CoreDemo
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=RegisterUser}/{action=Index}/{id?}");
+                    pattern: "{controller=Blog}/{action=Index}/{id?}");
             });
         }
     }

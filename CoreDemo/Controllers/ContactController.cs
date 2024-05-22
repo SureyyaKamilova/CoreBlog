@@ -1,13 +1,14 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFrameworks;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 
 namespace CoreDemo.Controllers
 {
-	
+	[AllowAnonymous]
 	public class ContactController : Controller
 	{
 		ContactManager contactManager = new ContactManager(new EFContactRepository());

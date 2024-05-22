@@ -1,27 +1,29 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFrameworks;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace CoreDemo.Controllers
 {
+	[AllowAnonymous]
 	public class NewsLetterController : Controller
 	{
 		NewsLetterManager newsLetterManager = new NewsLetterManager(new EFNewsLetterRepository());
 		[HttpGet]
-		public PartialViewResult SubscribeMail()
+		public IActionResult SubscribeMail()
 		{
 			return PartialView();
 		}
 
 		[HttpPost]
-		public PartialViewResult SubscribeMail(NewsLetter newsLetter)
+		public IActionResult SubscribeMail(NewsLetter newsLetter)
 		{
 			newsLetter.MailStatus = true;
 			newsLetterManager.AddNewsLetter(newsLetter);
 
-			return PartialView(RedirectToAction("BlogReadAll"));
+			return PartialView();
 
 		}
 	}
