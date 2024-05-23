@@ -18,6 +18,8 @@ namespace CoreDemo.Controllers
                                  .Select(y => y.WriterId).FirstOrDefault();
 
             ViewBag.v1=context.Blogs.Count().ToString();
+
+            ViewBag.yoursblog = context.Blogs.Where(x => x.WriterId == writerId).Count();
             
             ViewBag.category=context.Categories.Count().ToString() ;
             return View();

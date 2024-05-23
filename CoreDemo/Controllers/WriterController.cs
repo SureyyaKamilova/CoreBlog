@@ -64,11 +64,14 @@ namespace CoreDemo.Controllers
 		[HttpGet]
 		public IActionResult WriterEditProfile()
 		{
-			var userMail = User.Identity.Name;
-			var writerId=context.Writers.Where(x=>x.WriterMail == userMail)
-				                        .Select(y=>y.WriterId)                
+			var userName = User.Identity.Name;
+			var userMail = context.Users.Where(x => x.UserName == userName)
+										.Select(y => y.Email)                
 				                        .FirstOrDefault();
+			var writerId = context.Writers.Where(x => x.WriterMail == userMail)
+								 .Select(y => y.WriterId).FirstOrDefault();
 			var writerValues = writerManager.GetById(writerId);
+
 			return View(writerValues);
 		}
 
