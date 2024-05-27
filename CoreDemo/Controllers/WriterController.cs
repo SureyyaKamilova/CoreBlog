@@ -4,6 +4,7 @@ using CoreDemo.Models;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFrameworks;
 using EntityLayer.Concrete;
+using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
@@ -70,44 +73,34 @@ namespace CoreDemo.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
 
-            UserManager userManager = new UserManager(new EFUserRepository());
+            //UserManager userManager = new UserManager(new EFUserRepository());
 
-            var userName = User.Identity.Name;
-            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email)
-                                .FirstOrDefault();
-            //var values = await _userManager.FindByNameAsync(userName);
-            var id = context.Users.Where(x => x.Email == userMail)
-                .Select(y => y.Id).FirstOrDefault();
+            //var userName = User.Identity.Name;
+            //var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email)
+            //                    .FirstOrDefault();
+            ////var values = await _userManager.FindByNameAsync(userName);
+            //var id = context.Users.Where(x => x.Email == userMail)
+            //    .Select(y => y.Id).FirstOrDefault();
 
-            var values = userManager.GetById(id);
+            //var values = userManager.GetById(id);
 
+            //return View(values);
+
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
             return View(values);
 
+
         }
-
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer writer)
+        public  IActionResult WriterEditProfile(AppUser appUser)
         {
-            WriterValidation writerValidation = new WriterValidation();
-            ValidationResult validationResult = writerValidation.Validate(writer);
+            UserManager userManager = new UserManager(new EFUserRepository());
+            userManager.TUpdate(appUser);
 
-            if (validationResult.IsValid)
-            {
-                writerManager.TUpdate(writer);
-                return RedirectToAction("Index", "DashBoard");
-            }
-            else
-            {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-
-            return View();
+            return RedirectToAction("Index","DashBoard");
         }
 
         [AllowAnonymous]
