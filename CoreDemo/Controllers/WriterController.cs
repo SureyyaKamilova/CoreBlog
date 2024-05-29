@@ -75,30 +75,30 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public async Task<IActionResult> WriterEditProfile()
         {
-
-            //UserManager userManager = new UserManager(new EFUserRepository());
-
-            //var userName = User.Identity.Name;
-            //var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email)
-            //                    .FirstOrDefault();
-            ////var values = await _userManager.FindByNameAsync(userName);
-            //var id = context.Users.Where(x => x.Email == userMail)
-            //    .Select(y => y.Id).FirstOrDefault();
-
-            //var values = userManager.GetById(id);
-
-            //return View(values);
-
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
-            return View(values);
+            UserUpdateViewModel userUpdateViewModel = new UserUpdateViewModel();
+
+            userUpdateViewModel.namesurname = values.FullName;
+            userUpdateViewModel.email = values.Email;
+            userUpdateViewModel.username = values.UserName;
+            userUpdateViewModel.imageurl = values.ImageUrl;
+
+            return View(userUpdateViewModel);
 
 
         }
         [HttpPost]
-        public  IActionResult WriterEditProfile(AppUser appUser)
+        public async Task< IActionResult> WriterEditProfile(UserUpdateViewModel userUpdateViewModel)
         {
-            UserManager userManager = new UserManager(new EFUserRepository());
-            userManager.TUpdate(appUser);
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            values.FullName = userUpdateViewModel.namesurname;
+            values.Email = userUpdateViewModel.email;
+            values.UserName = userUpdateViewModel.username;
+            values.ImageUrl = userUpdateViewModel.imageurl;
+            values.PasswordHash =  _userManager.PasswordHasher.HashPassword(values, userUpdateViewModel.password);
+
+            var result = await _userManager.UpdateAsync(values);
 
             return RedirectToAction("Index","DashBoard");
         }
@@ -137,6 +137,8 @@ namespace CoreDemo.Controllers
             return RedirectToAction("Index", "DashBoard");
         }
 
+
+        
     }
 
 }

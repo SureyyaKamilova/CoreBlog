@@ -42,46 +42,11 @@ namespace CoreDemo.Controllers
             
         }
 
-        //      [HttpPost]
-        //public async Task<IActionResult> Index(Writer writer)
-        //{
-        //	#region LogIn
-        //	//Context context =new Context();
-        //	//var dataValue = context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
-        //	//								x.WriterPassword == writer.WriterPassword);
-        //	//if (dataValue != null)
-        //	//{
-        //	//	HttpContext.Session.SetString("username", writer.WriterMail);
-        //	//	return RedirectToAction("Index", "Writer");
-        //	//}
-        //	//else
-        //	//{
-        //	//	return View();
-        //	//}
-        //	#endregion
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
 
-        //	Context context = new Context();
-        //	var dataValue=context.Writers.FirstOrDefault(x => x.WriterMail == writer.WriterMail &&
-        //					             x.WriterPassword == writer.WriterPassword);
-
-        //	if (dataValue != null)
-        //	{
-        //		var claims = new List<Claim>
-        //		{
-        //			new Claim(ClaimTypes.Name,writer.WriterMail)
-        //		};
-
-        //		var userIdentity = new ClaimsIdentity(claims, "a");
-        //		ClaimsPrincipal principal=new ClaimsPrincipal(userIdentity);
-
-        //		await HttpContext.SignInAsync(principal);
-        //		return RedirectToAction("Index","DashBoard");
-        //	}
-        //	else
-        //	{
-        //		return View();
-        //	}
-
-        //}
+            return RedirectToAction("Index", "LogIn");
+        }
     }
 }

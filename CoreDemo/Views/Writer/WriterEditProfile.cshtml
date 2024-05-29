@@ -1,36 +1,42 @@
-﻿@model EntityLayer.Concrete.AppUser
+﻿@model UserUpdateViewModel
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-@using (Html.BeginForm("WriterEditProfile", "Writer", FormMethod.Post))
-{
+
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Edit Writer Profile</h4>
                 <br />
-                @Html.HiddenFor(x => x.Id, new { @class = "form-control" })
-
-                <form class="forms-sample">
+                <form class="forms-sample" method="post">
                     <div class="form-group">
                         <label for="exampleInputName1">Writer Full Name</label>
-                        @Html.TextBoxFor(x=>x.FullName, new { @class= "form-control"})
+                        <input type="text" asp-for="@Model.namesurname" class="form-control"/>    
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputName1">Writer Full Name</label>
-                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                        <label for="exampleInputName1">Writer User Name</label>
+                        <input type="text" asp-for="@Model.username" class="form-control"/>
+                        
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email address</label>
-                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                        <input type="email" asp-for="@Model.email" class="form-control" />
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail3">File upload</label>
+                        <input type="text" asp-for="@Model.imageurl" class="form-control" />
+                    </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">New Password</label>
+                    <input type="password" asp-for="@Model.password" class="form-control" />
+                </div>
+                    @* <div class="form-group">
                         <label for="exampleInputPassword4">Password</label>
                         @Html.PasswordFor(x => x.PasswordHash, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
+                    </div> *@
+                    @* <div class="form-group">
                         <label>File upload</label>
                         <input type="file" name="img[]" class="file-upload-default">
                         <div class="input-group col-xs-12">
@@ -39,7 +45,7 @@
                                 <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
                             </span>
                         </div>
-                    </div>
+                    </div> *@
 
                     <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
@@ -48,5 +54,4 @@
         </div>
     </div>
 
-}
 
