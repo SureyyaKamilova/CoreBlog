@@ -20,8 +20,8 @@
         <tr>
             <th>@message.MessageId</th>
             <td>@message.Subject</td>
-            <td>@(((DateTime)message.MessageDate).ToString("dd-MMM-yyyy"))</td>
             <td>@message.SenderUser.WriterName</td>
+            <td>@(((DateTime)message.MessageDate).ToString("dd-MMM-yyyy"))</td>
             <td><a href="/Message/MessageDetails/@message.MessageId" class="btn btn-warning">Open Message</a></td>
         </tr>
     }
