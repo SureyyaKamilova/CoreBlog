@@ -102,7 +102,7 @@ namespace CoreDemo
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Blog}/{action=Index}/{id?}");
+                    pattern: "{controller=Admin/Writer}/{action=Index}/{id?}");
             });
         }
     }

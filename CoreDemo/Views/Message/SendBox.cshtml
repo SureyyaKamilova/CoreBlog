@@ -1,17 +1,17 @@
 ﻿@using EntityLayer.Concrete
 @model List<Message2>
 @{
-    ViewData["Title"] = "Inbox";
+    ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-<h1>Writer`s inbox</h1>
+<h1>Writer`s sendbox</h1>
 
 <table class="table table-bordered">
     <tr>
         <th>#</th>
         <th>Subject</th>
-        <th>Sender</th>
+        <th>Receiver</th>
         <th>Date</th>
         <th>Open Message</th>
     </tr>
@@ -20,7 +20,7 @@
         <tr>
             <th>@message.MessageId</th>
             <td>@message.Subject</td>
-            <td>@message.SenderUser.WriterName</td>
+            <td>@message.ReceiverUser.WriterName</td>
             <td>@(((DateTime)message.MessageDate).ToString("dd-MMM-yyyy"))</td>
             <td><a href="/Message/MessageDetails/@message.MessageId" class="btn btn-warning">Open Message</a></td>
         </tr>
@@ -28,4 +28,6 @@
 </table>
 
 <a href="/Message/SendMessage/" class="btn btn-primary">Add new message</a>
+
+
 
