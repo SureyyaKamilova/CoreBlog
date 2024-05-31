@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="ViewComponents\Comment\**" />
+    <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="ViewComponents\Comment\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="ViewComponents\Comment\**" />
+    <None Remove="Areas\Admin\Data\**" />
     <None Remove="ViewComponents\Comment\**" />
   </ItemGroup>
 
@@ -443,7 +447,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="wwwroot\CoreBlogTema\WriterImageFiles\" />
   </ItemGroup>
 
