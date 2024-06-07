@@ -9,5 +9,6 @@ namespace DataAccessLayer.Interfaces
 {
     public interface IComment:IGeneric<Comment>
     {
+        List<Comment> GetListWithBlog();
     }
 }

@@ -22,24 +22,15 @@ namespace BusinessLayer.Concrete
 			_comment.Insert(comment);
 		}
 
-		public void CommentDelete(Comment comment)
-		{
-			_comment.Delete(comment);
-		}
-
-		public void CommentUpdate(Comment comment)
-		{
-			_comment.Update(comment);
-		}
-
 		public List<Comment> GetListId(int id)
 		{
 			return _comment.GetList(x =>x.BlogId== id);
 		}
 
-		public Comment GetById(int id)
-		{
-			return _comment.GetById(id);
-		}
-	}
+
+        public List<Comment> GetCommentWithBlog()
+        {
+			return _comment.GetListWithBlog();
+        }
+    }
 }

@@ -10,9 +10,7 @@ namespace BusinessLayer.Interfaces
 	public interface ICommentService
 	{
 		void CommentAdd(Comment comment);
-		void CommentDelete(Comment comment);
-		void CommentUpdate(Comment comment);
 		List<Comment> GetListId(int id);
-		Comment GetById(int id);
+		List<Comment> GetCommentWithBlog();
 	}
 }

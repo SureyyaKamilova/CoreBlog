@@ -1,7 +1,9 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFrameworks;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace CoreDemo.Areas.Admin.Controllers
@@ -30,7 +32,6 @@ namespace CoreDemo.Areas.Admin.Controllers
         {
             var userName = User.Identity.Name;
 
-
             var userMail = context.Users.Where(x => x.UserName == userName)
                                       .Select(y => y.Email)
                                       .FirstOrDefault();
@@ -41,9 +42,31 @@ namespace CoreDemo.Areas.Admin.Controllers
             return View(values);
         }
 
+        [HttpGet]
         public IActionResult ComposeMessage()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult ComposeMessage(Message2 message)
+        {
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName)
+                                     .Select(y => y.Email)
+                                     .FirstOrDefault();
+            var writerId = context.Writers.Where(x => x.WriterMail == userMail)
+                                        .Select(y => y.WriterId)
+                                        .FirstOrDefault();
+
+            message.SenderId = writerId;
+            message.ReceiverId = 2;
+            message.MessageDate=Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            message.MessageStatus = true;
+
+            message2Manager.TAdd(message);
+            return RedirectToAction("SendBox");
+        }
     }
+
 }
