@@ -43,8 +43,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Title</th>
-                                    <th>Delete</th>
                                     <th>Update</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,13 +54,15 @@
                                     <tr>
                                         <th>@role.Id</th>
                                         <td>@role.Name</td>
-                                        <td><a href="#" class="btn btn-outline-danger">Delete</a></td>
-                                        <td><a href="#" class="btn btn-outline-success">Update</a></td>
+                                        <td><a href="/Admin/AdminRole/UpdateRole/@role.Id" class="btn btn-outline-success">Update</a></td>
+                                        <td><a href="/Admin/AdminRole/DeleteRole/@role.Id" class="btn btn-outline-danger">Delete</a></td>
+                                        
                                     </tr>
                                 }
                             </tbody>
                         </table>
                         <a href="/Admin/AdminRole/AddRole/" class="btn btn-outline-primary">Create New Role</a>
+                        <a href="/Admin/AdminRole/UserRoleList/" class="btn btn-outline-info">User Role List</a>
                     </div>
                 </div>
             </div>
