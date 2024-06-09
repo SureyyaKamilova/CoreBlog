@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,8 +62,12 @@ namespace CoreDemo
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/LogIn/AccessDenied");
+
                 options.LoginPath = "/LogIn/Index/";
                 options.SlidingExpiration = true;
+                //options.AccessDeniedPath("Admin", policy => policy.RequireRole("Admin"));
+                //options.AddPolicy("Moderator", policy => policy.RequireRole("Moderator"));
             });
         }
 

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\403error\403forbidden\README.markdown" />
     <None Include="wwwroot\CoreBlogTema\AdminTema\inspinia-gh-pages\.gitignore" />
     <None Include="wwwroot\CoreBlogTema\AdminTema\inspinia-gh-pages\css\bootstrap.css.map" />
     <None Include="wwwroot\CoreBlogTema\AdminTema\inspinia-gh-pages\css\bootstrap.min.css.map" />

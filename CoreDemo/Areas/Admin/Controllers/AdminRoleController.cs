@@ -1,6 +1,7 @@
 ﻿using CoreDemo.Areas.Admin.Models;
 using CoreDemo.Models;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace CoreDemo.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize(Roles ="Admin,Moderator")]
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
@@ -42,7 +44,7 @@ namespace CoreDemo.Areas.Admin.Controllers
                 {
                     Name = roleViewModel.Name
                 };
-                var result = await _roleManager.CreateAsync(appRole) ;
+                var result = await _roleManager.CreateAsync(appRole);
 
                 if (result.Succeeded)
                 {
@@ -60,7 +62,7 @@ namespace CoreDemo.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult UpdateRole(int id)
         {
-            var values=_roleManager.Roles.FirstOrDefault(x=>x.Id==id);
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
             RoleUpdateViewModel roleUpdateViewModel = new RoleUpdateViewModel
             {
                 Id = values.Id,
@@ -76,7 +78,7 @@ namespace CoreDemo.Areas.Admin.Controllers
                        .FirstOrDefault();
 
             values.Name = role.name;
-            var result=await _roleManager.UpdateAsync(values);
+            var result = await _roleManager.UpdateAsync(values);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -88,7 +90,7 @@ namespace CoreDemo.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteRole(int id)
         {
             var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
-            var result= await _roleManager.DeleteAsync(values);
+            var result = await _roleManager.DeleteAsync(values);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
@@ -98,7 +100,7 @@ namespace CoreDemo.Areas.Admin.Controllers
 
         public IActionResult UserRoleList()
         {
-            var values=_userManager.Users.ToList();
+            var values = _userManager.Users.ToList();
             return View(values);
         }
         [HttpGet]
@@ -107,15 +109,15 @@ namespace CoreDemo.Areas.Admin.Controllers
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
             var roles = _roleManager.Roles.ToList();
 
-            TempData["UserId"]=user.Id;
+            TempData["UserId"] = user.Id;
 
             var userRole = await _userManager.GetRolesAsync(user);
             List<RoleAssignViewModel> model = new List<RoleAssignViewModel>();
             foreach (var role in roles)
             {
                 RoleAssignViewModel roleAssign = new RoleAssignViewModel();
-                roleAssign.RoleId=role.Id;
-                roleAssign.Name=role.Name;
+                roleAssign.RoleId = role.Id;
+                roleAssign.Name = role.Name;
                 roleAssign.IsExsists = userRole.Contains(role.Name);
                 model.Add(roleAssign);
             }
@@ -123,5 +125,24 @@ namespace CoreDemo.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> roleAssignViewModels)
+        {
+            var userId = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+            foreach(var item in roleAssignViewModels)
+            {
+                if (item.IsExsists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name);
+                }
+            }
+
+            return RedirectToAction("UserRoleList");
+        }
     }
 }

@@ -48,5 +48,10 @@ namespace CoreDemo.Controllers
 
             return RedirectToAction("Index", "LogIn");
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
